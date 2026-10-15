@@ -16,10 +16,14 @@ jobs:
         with:
           node-version: '24'
           cache: 'npm'
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
       - name: Run unit tests
         run: npm test
       - name: Build
         run: npm run build
+      # The smoke suite runs vitest directly against the build step above; the
+      # test:routes script wraps the same vitest run in its own build, which
+      # would build a second time.
       - name: Run route smoke tests
-        run: npm run test:routes
+        run: npx vitest run --config tests/smoke/vitest.config.mts
