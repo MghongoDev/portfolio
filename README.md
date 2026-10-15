@@ -17,6 +17,7 @@ npm run dev         # http://localhost:3000
 npm run build       # production build
 npm test            # content pipeline tests (vitest)
 npm run test:routes # build, serve, and check every route over HTTP
+npm run test:smoke  # check every route against a server that is already running
 ```
 
 ## Editing content
@@ -44,7 +45,7 @@ The body uses the case-study skeleton: `Context → Problem → Approach & Archi
 
 **Site identity and links:** `src/lib/site.ts`.
 
-The test suite validates front-matter and compilation. Run `npm test` after content edits. The route smoke suite (`npm run test:routes`) builds the site, serves it, and checks every route. Set `SMOKE_BASE_URL` to sweep a running site, such as the live deployment.
+The test suite validates front-matter and compilation. Run `npm test` after content edits. The route smoke suite (`npm run test:routes`) builds the site, serves it, and checks every route; `npm run test:smoke` runs only the checks against a server that is already up. Set `SMOKE_BASE_URL` to skip the local server and sweep a running site instead, such as the live deployment: `SMOKE_BASE_URL=https://dmwandairo.vercel.app npm run test:smoke`. The route table lives in one place (`tests/smoke/routes.test.ts`) and drives both, so adding a route is one table entry.
 
 ## Deployment
 
