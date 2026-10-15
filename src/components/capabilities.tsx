@@ -6,7 +6,7 @@ const capabilities = [
   {
     n: "01",
     title: "Data Engineering",
-    body: "Batch and streaming pipelines that treat raw data as an audit trail — Airflow-orchestrated ingestion, CDC with Debezium and Kafka, idempotent loads, and quality gates before anything reaches a consumer.",
+    body: "Batch and streaming pipelines that treat raw data as an audit trail: Airflow-orchestrated ingestion, CDC with Debezium and Kafka, idempotent loads, and quality gates before anything reaches a consumer.",
     stack: ["Airflow", "Kafka", "Debezium", "Docker", "Terraform"],
   },
   {
@@ -64,7 +64,7 @@ export default function Capabilities() {
 
       <Reveal className="mt-10">
         <p className="text-sm text-muted">
-          The full story is in the work —{" "}
+          The full story is in the work:{" "}
           <Link href="/projects" className="link-slide text-accent">
             read the case studies
           </Link>{" "}

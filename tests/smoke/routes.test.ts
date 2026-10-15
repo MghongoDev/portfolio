@@ -18,7 +18,7 @@ const ROUTES: { path: string; status: number; contains: string }[] = [
 ];
 
 // Set SMOKE_BASE_URL to skip the local server and sweep a site that is already
-// running — the live deployment, say. The route table stays the same either way.
+// running, such as the live deployment. The route table stays the same either way.
 const externalBase = process.env.SMOKE_BASE_URL?.replace(/\/+$/, "");
 
 let base = externalBase ?? "";

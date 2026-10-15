@@ -4,7 +4,7 @@ import Reveal from "@/components/reveal";
 
 export const metadata: Metadata = {
   title: "Résumé",
-  description: "David Mwandairo's résumé — skills across data engineering, analytics engineering, ML, and BI, with a downloadable PDF.",
+  description: "David Mwandairo's résumé: skills across data engineering, analytics engineering, ML, and BI, with a downloadable PDF.",
 };
 
 const groups = [
@@ -19,7 +19,7 @@ const groups = [
 
 const highlights = [
   {
-    text: "Built a medallion lakehouse with immutable bronze, SCD Type 2 dimensions, and point-in-time-correct joins — Airflow, dbt, DuckDB, Terraform.",
+    text: "Built a medallion lakehouse with immutable bronze, SCD Type 2 dimensions, and point-in-time-correct joins: Airflow, dbt, DuckDB, Terraform.",
     href: "/projects/marketfeed-lakehouse",
     label: "MarketFeed Lakehouse",
   },

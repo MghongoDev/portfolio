@@ -7,7 +7,7 @@ import { craftProject, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Case studies in data engineering, analytics engineering, and machine learning — pipelines, models, and dashboards with their real numbers.",
+    "Case studies in data engineering, analytics engineering, and machine learning: pipelines, models, and dashboards with their real numbers.",
 };
 
 export default function ProjectsPage() {

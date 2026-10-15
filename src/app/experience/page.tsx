@@ -6,7 +6,7 @@ import Reveal from "@/components/reveal";
 
 export const metadata: Metadata = {
   title: "Experience",
-  description: "David Mwandairo's experience timeline — independent data platform builds across engineering, modeling, and BI.",
+  description: "David Mwandairo's experience timeline: independent data platform builds across engineering, modeling, and BI.",
 };
 
 type Entry = {

@@ -13,7 +13,7 @@ const principles = [
   {
     n: "01",
     title: "Raw data is sacred",
-    body: "Bronze layers land bytes as they arrived — append-only, partitioned by ingestion date. When a downstream bug surfaces, we reprocess instead of re-fetching rate-limited APIs.",
+    body: "Bronze layers land bytes as they arrived: append-only, partitioned by ingestion date. When a downstream bug surfaces, we reprocess instead of re-fetching rate-limited APIs.",
   },
   {
     n: "02",
@@ -28,7 +28,7 @@ const principles = [
   {
     n: "04",
     title: "Write the decision down",
-    body: "Trade-offs live in ADRs and READMEs — why bronze is immutable, why this join is point-in-time-correct, why logistic regression beat gradient boosting. Future readers deserve the reasoning, not just the result.",
+    body: "Trade-offs live in ADRs and READMEs: why bronze is immutable, why this join is point-in-time-correct, why logistic regression beat gradient boosting. Future readers deserve the reasoning, not just the result.",
   },
 ];
 
@@ -62,7 +62,7 @@ export default function AboutPage() {
           My portfolio reflects that. One project lands raw market JSON in an immutable bronze layer and walks
           it through dbt to point-in-time-correct marts. Another streams every OLTP change out of a microfinance
           core through Debezium and Kafka into ClickHouse, with Grafana watching each hop. A third takes a churn
-          problem end to end — EDA, leakage-safe features, model selection, then a tested FastAPI service behind
+          problem end to end: EDA, leakage-safe features, model selection, then a tested FastAPI service behind
           Docker.
         </p>
         <p>
@@ -112,7 +112,7 @@ export default function AboutPage() {
 
       <Reveal className="mt-20 border-t border-line pt-10">
         <p className="text-muted">
-          The best proof is the work itself —{" "}
+          The best proof is the work itself:{" "}
           <Link href="/projects" className="link-slide text-accent">
             start with the case studies
           </Link>

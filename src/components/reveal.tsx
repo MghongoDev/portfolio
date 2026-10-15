@@ -7,7 +7,7 @@ type RevealProps = {
   className?: string;
   /** ms delay before the transition starts (stagger) */
   delay?: number;
-  /** deblur variant — use sparingly, headings only */
+  /** deblur variant: use sparingly, headings only */
   blur?: boolean;
 };
 

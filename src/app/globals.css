@@ -21,7 +21,7 @@
 }
 
 :root {
-  /* Motion personality: PHYSICAL — three curves, no exceptions. */
+  /* Motion personality: PHYSICAL. Three curves, no exceptions. */
   --spring-snappy: linear(
     0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%,
     1.017 19.4%, 1.067 22.5%, 1.089 26%, 1.079 30.3%, 1.049 36%,
@@ -186,7 +186,7 @@ body {
   animation: pulse-dot 2s linear infinite;
 }
 
-/* ---- marquee (ambient loop — linear is correct here) ---- */
+/* ---- marquee (ambient loop: linear is correct here) ---- */
 
 @keyframes marquee {
   to { transform: translateX(-50%); }

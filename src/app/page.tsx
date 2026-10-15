@@ -22,7 +22,7 @@ export default function Home() {
             Systems that shipped.
           </h2>
           <p className="mt-4 max-w-2xl text-lg text-muted">
-            Four builds, told honestly — what broke, what I decided, and what it produced.
+            Four builds, told honestly: what broke, what I decided, and what it produced.
           </p>
         </Reveal>
 

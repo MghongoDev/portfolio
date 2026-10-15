@@ -14,7 +14,7 @@ export default function ProjectCard({ project, wide = false }: { project: Projec
         {project.cover ? (
           <Image
             src={project.cover}
-            alt={`${project.title} — ${project.tagline}`}
+            alt={`${project.title}: ${project.tagline}`}
             fill
             sizes={wide ? "(min-width: 1024px) 1152px, 100vw" : "(min-width: 1024px) 576px, 100vw"}
             className="kenburns object-cover"

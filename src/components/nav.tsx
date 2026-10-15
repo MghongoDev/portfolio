@@ -22,7 +22,7 @@ export default function Nav() {
         <Link
           href="/"
           className="press font-mono text-base font-semibold tracking-tight text-paper"
-          aria-label={`${site.name} — home`}
+          aria-label={`${site.name}: home`}
           onClick={() => setOpen(false)}
         >
           DM<span className="blink text-accent">_</span>

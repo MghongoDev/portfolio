@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Reach David Mwandairo by email, LinkedIn, or GitHub — no forms, email is fastest.",
+  description: "Reach David Mwandairo by email, LinkedIn, or GitHub. No forms, and email is fastest.",
 };
 
 const channels = [
@@ -12,7 +12,7 @@ const channels = [
     label: "Email",
     value: site.links.email,
     href: `mailto:${site.links.email}`,
-    hint: "Fastest — I reply within a day",
+    hint: "Fastest: I reply within a day",
     external: false,
   },
   {
@@ -40,7 +40,7 @@ export default function ContactPage() {
           Let&apos;s talk<span className="text-accent">.</span>
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted">
-          No forms, no gatekeeping — pick a channel. Email reaches me fastest.
+          No forms, no gatekeeping. Pick a channel. Email reaches me fastest.
         </p>
       </Reveal>
 

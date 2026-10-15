@@ -9,7 +9,7 @@ const BASE = `http://${HOST}:${PORT}`;
 /** Serve the production build in-process; the caller owns stopping it. */
 export async function startProdServer(): Promise<{ base: string; stop: () => Promise<void> }> {
   if (!existsSync(".next/BUILD_ID")) {
-    throw new Error("No production build found — run `npm run build` before the smoke suite.");
+    throw new Error("No production build found. Run `npm run build` before the smoke suite.");
   }
 
   const app = next({ dev: false, hostname: HOST, port: PORT });
