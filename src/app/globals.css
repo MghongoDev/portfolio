@@ -1,0 +1,524 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-ink: #05080a;
+  --color-ink-2: #090e12;
+  --color-ink-3: #0d1419;
+  --color-paper: #e9f1ee;
+  --color-muted: #8fa39e;
+  --color-faint: #5c6f6c;
+  --color-line: rgba(151, 199, 187, 0.1);
+  --color-line-strong: rgba(151, 199, 187, 0.24);
+  --color-accent: #c8f04b;
+  --color-accent-soft: rgba(200, 240, 75, 0.12);
+}
+
+@theme inline {
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  /* Motion personality: PHYSICAL — three curves, no exceptions. */
+  --spring-snappy: linear(
+    0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%,
+    1.017 19.4%, 1.067 22.5%, 1.089 26%, 1.079 30.3%, 1.049 36%,
+    1.024 42.6%, 1.011 50.3%, 1.004 59.2%, 1.001 69.3%, 1
+  );
+  --spring-smooth: linear(
+    0, 0.004, 0.016 2.3%, 0.063 4.7%, 0.141 7.2%, 0.25 9.9%,
+    0.601 16.5%, 0.815 21%, 0.929 25.2%, 0.987 29%, 1.025 33.5%,
+    1.042 38%, 1.04 43.5%, 1.027 50%, 1.013 57.5%, 1.005 67%,
+    1.001 79%, 1
+  );
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1c2b28 transparent;
+}
+
+/* ---- backgrounds ---- */
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.mask-radial-top {
+  -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 15%, black 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 95% 85% at 50% 15%, black 25%, transparent 78%);
+}
+
+/* ---- scroll reveals (IntersectionObserver adds .is-visible) ---- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s var(--spring-snappy),
+    transform 0.7s var(--spring-snappy);
+}
+
+.reveal-blur {
+  filter: blur(10px);
+  transition:
+    opacity 0.8s var(--spring-snappy),
+    transform 0.8s var(--spring-snappy),
+    filter 0.8s var(--spring-snappy);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+@media (scripting: none) {
+  .reveal,
+  .reveal-blur {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ---- entry choreography (page load, under 800ms total) ---- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+.rise {
+  animation: rise 0.65s var(--spring-snappy) both;
+}
+
+@keyframes rise-blur {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.rise-blur {
+  animation: rise-blur 0.75s var(--spring-snappy) both;
+}
+
+@keyframes mask-up {
+  from {
+    transform: translateY(112%);
+  }
+}
+
+.mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.09em;
+  margin-bottom: -0.09em;
+}
+
+.mask-line > span {
+  display: block;
+  animation: mask-up 0.85s var(--spring-snappy) both;
+}
+
+@keyframes blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.scroll-cue {
+  animation: drift 2.4s linear infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s linear infinite;
+}
+
+/* ---- marquee (ambient loop — linear is correct here) ---- */
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  width: max-content;
+  animation: marquee 36s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---- interaction vocabulary ---- */
+
+.tcolor {
+  transition: color 0.25s var(--ease-snap);
+}
+
+.link-slide {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s var(--ease-snap);
+}
+
+.link-slide:hover {
+  background-size: 100% 1px;
+}
+
+.press {
+  transition: transform 0.16s var(--ease-snap);
+}
+
+.press:active {
+  transform: scale(0.97);
+}
+
+.card-hover {
+  transition:
+    transform 0.35s var(--ease-snap),
+    border-color 0.35s var(--ease-snap),
+    box-shadow 0.35s var(--ease-snap);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-line-strong);
+  box-shadow:
+    0 16px 48px -16px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(200, 240, 75, 0.08);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .kenburns {
+    transition: transform 0.6s var(--ease-snap);
+  }
+  .group:hover .kenburns {
+    transform: scale(1.04);
+  }
+}
+
+/* ---- buttons ---- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.8rem 1.6rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  transition:
+    transform 0.2s var(--ease-snap),
+    background-color 0.2s var(--ease-snap),
+    box-shadow 0.2s var(--ease-snap),
+    border-color 0.2s var(--ease-snap),
+    color 0.2s var(--ease-snap);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 28px rgba(200, 240, 75, 0.25);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  border: 1px solid var(--color-line-strong);
+  color: var(--color-paper);
+}
+
+.btn-ghost:hover {
+  border-color: rgba(200, 240, 75, 0.5);
+  background: var(--color-accent-soft);
+  transform: translateY(-2px);
+}
+
+/* ---- chips ---- */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border: 1px solid var(--color-line);
+  border-radius: 9999px;
+  padding: 0.3rem 0.7rem;
+  white-space: nowrap;
+}
+
+/* ---- case-study article ---- */
+
+.prose-case {
+  color: #cfd9d5;
+  line-height: 1.75;
+  font-size: 1.0625rem;
+}
+
+.prose-case > * + * {
+  margin-top: 1.1em;
+}
+
+.prose-case h2 {
+  font-family: var(--font-display);
+  color: var(--color-paper);
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 2.4em;
+  margin-bottom: 0.7em;
+}
+
+.prose-case h3 {
+  font-family: var(--font-display);
+  color: var(--color-paper);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
+}
+
+.prose-case p {
+  margin: 0;
+}
+
+.prose-case strong {
+  color: var(--color-paper);
+  font-weight: 600;
+}
+
+.prose-case a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(200, 240, 75, 0.4);
+}
+
+.prose-case a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+.prose-case ul,
+.prose-case ol {
+  padding-left: 1.4em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+}
+
+.prose-case ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.prose-case ul li {
+  position: relative;
+  padding-left: 1.4em;
+}
+
+.prose-case ul li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-size: 0.85em;
+  top: 0.28em;
+}
+
+.prose-case ol {
+  list-style: decimal;
+}
+
+.prose-case ol li::marker {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.prose-case blockquote {
+  border-left: 2px solid var(--color-accent);
+  padding: 0.2em 0 0.2em 1.2em;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.prose-case code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-ink-3);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 0.15em 0.4em;
+  color: #d9e8c9;
+}
+
+.prose-case pre {
+  margin-top: 1.4em;
+  border-radius: 12px;
+  border: 1px solid var(--color-line);
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: 1.1rem 1.25rem !important;
+}
+
+.prose-case pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.prose-case img {
+  border-radius: 12px;
+  border: 1px solid var(--color-line);
+  margin-top: 1.8em;
+  width: 100%;
+  height: auto;
+}
+
+.prose-case table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 1.4em;
+}
+
+.prose-case th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  text-align: left;
+  border-bottom: 1px solid var(--color-line-strong);
+  padding: 0.6em 0.9em;
+}
+
+.prose-case td {
+  border-bottom: 1px solid var(--color-line);
+  padding: 0.6em 0.9em;
+}
+
+.prose-case td:first-child {
+  color: var(--color-paper);
+}
+
+.prose-case hr {
+  border: none;
+  border-top: 1px solid var(--color-line);
+  margin: 2.5em 0;
+}
+
+/* ASCII architecture diagram (raw HTML inside markdown) */
+.diagram {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--color-muted);
+  background: var(--color-ink-2);
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  white-space: pre;
+  margin-top: 1.4em;
+}
+
+.diagram .ok {
+  color: var(--color-accent);
+}
+
+/* ---- reduced motion: opacity-only, shorter ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .reveal-blur {
+    transition: opacity 0.25s linear;
+    transform: none;
+    filter: none;
+  }
+  .rise,
+  .rise-blur,
+  .mask-line > span {
+    animation: none;
+  }
+  .marquee-track,
+  .blink,
+  .scroll-cue,
+  .pulse-dot {
+    animation: none;
+  }
+  .card-hover:hover,
+  .btn-primary:hover,
+  .btn-ghost:hover {
+    transform: none;
+  }
+  .kenburns,
+  .group:hover .kenburns {
+    transition: none;
+    transform: none;
+  }
+}

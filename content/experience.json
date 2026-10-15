@@ -1,0 +1,12 @@
+{
+  "note": "Timeline is maintained in content/experience.json — append an entry with period, role, org, summary, and tags; the page renders them in file order.",
+  "entries": [
+    {
+      "period": "2026 — present",
+      "role": "Independent data platform builds",
+      "org": "Self-directed — github.com/MghongoDev",
+      "summary": "Designing and shipping end-to-end platforms: a market-data lakehouse with immutable bronze and SCD Type 2 dimensions, a CDC streaming warehouse over a microfinance core, a churn ML service behind FastAPI, and SQL/BI analysis work. Each one documented, tested, and containerized as if production depended on it.",
+      "tags": ["Python", "SQL", "dbt", "Airflow", "Kafka", "ClickHouse"]
+    }
+  ]
+}

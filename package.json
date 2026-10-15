@@ -1,0 +1,39 @@
+{
+  "name": "new_proj",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:routes": "npm run build && vitest run --config tests/smoke/vitest.config.ts"
+  },
+  "dependencies": {
+    "@shikijs/rehype": "^4.5.0",
+    "@tailwindcss/typography": "^0.5.20",
+    "@vercel/analytics": "^2.0.1",
+    "gray-matter": "^4.0.3",
+    "motion": "^14.2.0",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "unified": "^11.0.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^5.0.4"
+  }
+}
