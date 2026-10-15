@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { getAllProjectSlugs, getFeaturedProjects, getProjectHtml, getProjectMeta } from "../src/lib/projects";
 
 const EXPECTED_FEATURED = [
-  "marketfeed-lakehouse",
   "fineract-analytics-platform",
+  "marketfeed-lakehouse",
   "signaltel-churn-intelligence",
   "tembo-hotel-analysis",
 ];
