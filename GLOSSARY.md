@@ -1,6 +1,6 @@
 # Portfolio
 
-The personal site of David Mwandairo, a data engineer/scientist. Its purpose is to convince recruiters and hiring managers of data roles to interview the author; peers and freelance clients are a secondary audience.
+The personal site of David Mwandairo, a data engineer and data scientist. Its goal is to win interviews for data roles. Recruiters and hiring managers are the main audience; peers and freelance clients are secondary.
 
 ## Language
 
