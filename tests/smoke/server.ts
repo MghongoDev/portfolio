@@ -6,6 +6,13 @@ const HOST = "127.0.0.1";
 const PORT = 3311;
 const BASE = `http://${HOST}:${PORT}`;
 
+/**
+ * How long the server is given to become ready. The smoke config's hookTimeout
+ * must stay strictly above this, or vitest kills the hook at the same instant
+ * this module gives up and the message below is never the thing you read.
+ */
+export const READY_DEADLINE_MS = 30_000;
+
 /** Serve the production build in-process; the caller owns stopping it. */
 export async function startProdServer(): Promise<{ base: string; stop: () => Promise<void> }> {
   if (!existsSync(".next/BUILD_ID")) {
@@ -18,9 +25,15 @@ export async function startProdServer(): Promise<{ base: string; stop: () => Pro
   const server = createServer((req, res) => {
     void handle(req, res);
   });
-  await new Promise<void>((resolve) => server.listen(PORT, HOST, resolve));
+  await new Promise<void>((resolve, reject) => {
+    // A port already in use is a harness problem, not a crash dump.
+    server.once("error", (err: NodeJS.ErrnoException) => {
+      reject(new Error(`Could not listen on ${BASE}: ${err.message}. Is another smoke run holding the port?`));
+    });
+    server.listen(PORT, HOST, resolve);
+  });
 
-  const deadline = Date.now() + 30_000;
+  const deadline = Date.now() + READY_DEADLINE_MS;
   for (;;) {
     try {
       const res = await fetch(BASE);
@@ -29,7 +42,7 @@ export async function startProdServer(): Promise<{ base: string; stop: () => Pro
       // not accepting connections yet
     }
     if (Date.now() > deadline) {
-      throw new Error(`Server at ${BASE} did not become ready within 30s`);
+      throw new Error(`Server at ${BASE} did not become ready within ${READY_DEADLINE_MS}ms`);
     }
     await new Promise((resolve) => setTimeout(resolve, 250));
   }

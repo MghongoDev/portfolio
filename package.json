@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:routes": "npm run build && vitest run --config tests/smoke/vitest.config.mts"
+    "test:smoke": "vitest run --config tests/smoke/vitest.config.mts",
+    "test:routes": "npm run build && npm run test:smoke"
   },
   "dependencies": {
     "@shikijs/rehype": "^4.5.0",

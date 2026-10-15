@@ -22,8 +22,8 @@ jobs:
         run: npm test
       - name: Build
         run: npm run build
-      # The smoke suite runs vitest directly against the build step above; the
-      # test:routes script wraps the same vitest run in its own build, which
-      # would build a second time.
       - name: Run route smoke tests
-        run: npx vitest run --config tests/smoke/vitest.config.mts
+        # Calls the same script the local flow does, so the smoke vitest
+        # invocation has one home. test:routes wraps it in its own build,
+        # which would build a second time on top of the step above.
+        run: npm run test:smoke
