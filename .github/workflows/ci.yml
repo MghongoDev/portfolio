@@ -74,3 +74,45 @@ jobs:
           STATUS=$?
           kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
           exit $STATUS
+      - name: Run hero grain guard
+        # Measures the grain layer on the hero through headless Chrome, so
+        # the texture is gated rather than merely present. The guard
+        # inherits the same Chrome + server teardown pattern as the scale
+        # guard above.
+        run: |
+          google-chrome --headless=new --no-sandbox --disable-gpu \
+            --remote-debugging-port=9222 --remote-allow-origins='*' \
+            about:blank > /tmp/chrome.log 2>&1 &
+          CHROME_PID=$!
+          chrome_ready=0
+          for _ in $(seq 1 60); do
+            if curl -sf http://127.0.0.1:9222/json/version > /dev/null; then
+              chrome_ready=1; break
+            fi
+            sleep 0.5
+          done
+          npx next start -p 3311 > /tmp/next.log 2>&1 &
+          NEXT_PID=$!
+          server_ready=0
+          for _ in $(seq 1 120); do
+            if curl -sf http://127.0.0.1:3311/ > /dev/null; then
+              server_ready=1; break
+            fi
+            sleep 0.5
+          done
+          if [ "$chrome_ready" != "1" ]; then
+            echo "Chrome DevTools endpoint never came up; last log lines:"
+            tail -20 /tmp/chrome.log
+            kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
+            exit 1
+          fi
+          if [ "$server_ready" != "1" ]; then
+            echo "Next server never came up; last log lines:"
+            tail -20 /tmp/next.log
+            kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
+            exit 1
+          fi
+          node scripts/check-hero-grain.mjs http://127.0.0.1:3311/ --cdp http://127.0.0.1:9222
+          STATUS=$?
+          kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
+          exit $STATUS
