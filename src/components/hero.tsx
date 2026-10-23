@@ -201,7 +201,7 @@ function ChartCanvas() {
     };
   }, []);
 
-  return <canvas ref={ref} className="absolute inset-0 h-full w-full" aria-hidden="true" />;
+  return <canvas ref={ref} className="absolute inset-x-0 bottom-0 h-[25%] w-full" aria-hidden="true" />;
 }
 
 export default function Hero() {

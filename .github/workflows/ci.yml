@@ -74,3 +74,12 @@ jobs:
           STATUS=$?
           kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
           exit $STATUS
+      - name: Run hero chart guard
+        # Measures the real rendered hero through headless Chrome, so the
+        # chart recede is gated rather than merely present. Reuses the
+        # Chrome instance and server from the step above.
+        run: |
+          node scripts/check-hero-chart.mjs http://127.0.0.1:3311/ --cdp http://127.0.0.1:9222
+          STATUS=$?
+          kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
+          exit $STATUS
