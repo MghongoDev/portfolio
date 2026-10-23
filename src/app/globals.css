@@ -15,7 +15,7 @@
 
   /* Hero display scale: tuned to fill the hero container without letting the
      second name line wrap. See docs/adr/0001. */
-  --text-hero-name: clamp(2.75rem, 14.5vw, 12.25rem);
+  --text-hero-name: clamp(4rem, 17.5vw, 12.75rem);
   --text-hero-name--line-height: 0.92;
 }
 
