@@ -228,7 +228,7 @@ export default function Hero() {
           {site.role}
         </p>
 
-        <h1 className="mt-6 font-display text-[clamp(2.9rem,8.5vw,5.75rem)] font-bold leading-[0.98] tracking-tight text-paper">
+        <h1 className="mt-6 font-display text-hero-name font-bold leading-[0.92] tracking-[-0.04em] text-paper">
           <span className="mask-line">
             <span style={{ animationDelay: "160ms" }}>David</span>
           </span>
