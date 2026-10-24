@@ -80,6 +80,11 @@ jobs:
         # Chrome instance and Next server so it does not depend on the
         # previous guard step's processes, which are not shared across
         # GitHub Actions steps.
+      - name: Run hero grain guard
+        # Measures the grain layer on the hero through headless Chrome, so
+        # the texture is gated rather than merely present. The guard
+        # inherits the same Chrome + server teardown pattern as the scale
+        # guard above.
         run: |
           google-chrome --headless=new --no-sandbox --disable-gpu \
             --remote-debugging-port=9222 --remote-allow-origins='*' \
@@ -122,6 +127,16 @@ jobs:
         # the texture is gated rather than merely present. The guard
         # inherits the same Chrome + server teardown pattern as the scale
         # guard above.
+          node scripts/check-hero-grain.mjs http://127.0.0.1:3311/ --cdp http://127.0.0.1:9222
+          STATUS=$?
+          kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
+          exit $STATUS
+      - name: Run hero chart guard
+        # Measures the real rendered hero through headless Chrome, so the
+        # chart recede is gated rather than merely present. Starts its own
+        # Chrome instance and Next server so it does not depend on the
+        # previous guard step's processes, which are not shared across
+        # GitHub Actions steps.
         run: |
           google-chrome --headless=new --no-sandbox --disable-gpu \
             --remote-debugging-port=9222 --remote-allow-origins='*' \
@@ -156,6 +171,7 @@ jobs:
             exit 1
           fi
           node scripts/check-hero-grain.mjs http://127.0.0.1:3311/ --cdp http://127.0.0.1:9222
+          node scripts/check-hero-chart.mjs http://127.0.0.1:3311/ --cdp http://127.0.0.1:9222
           STATUS=$?
           kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
           exit $STATUS
