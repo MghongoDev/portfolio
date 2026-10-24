@@ -27,7 +27,18 @@ jobs:
         # invocation has one home. test:routes wraps it in its own build,
         # which would build a second time on top of the step above.
         run: npm run test:smoke
+      # Each hero guard is a one-liner. scripts/hero-harness.mjs starts Chrome
+      # and the production server on ports it is given, waits for both, runs
+      # the guard, and tears both down whatever the verdict is, so the three
+      # steps cannot drift apart the way three hand-rolled copies did. A
+      # service that never comes up fails the step and names itself, rather
+      # than surfacing as a hero that never rendered.
       - name: Run hero type-scale guard
+        run: node scripts/hero-harness.mjs scripts/check-hero-scale.mjs
+      - name: Run hero grain guard
+        run: node scripts/hero-harness.mjs scripts/check-hero-grain.mjs
+      - name: Run hero chart guard
+        run: node scripts/hero-harness.mjs scripts/check-hero-chart.mjs
         # Measures the real rendered hero through headless Chrome, so the
         # editorial type scale is gated rather than merely present. The guard
         # starts neither Chrome nor the server; this step does, and tears both
