@@ -27,7 +27,18 @@ jobs:
         # invocation has one home. test:routes wraps it in its own build,
         # which would build a second time on top of the step above.
         run: npm run test:smoke
+      # Each hero guard is a one-liner. scripts/hero-harness.mjs starts Chrome
+      # and the production server on ports it is given, waits for both, runs
+      # the guard, and tears both down whatever the verdict is, so the three
+      # steps cannot drift apart the way three hand-rolled copies did. A
+      # service that never comes up fails the step and names itself, rather
+      # than surfacing as a hero that never rendered.
       - name: Run hero type-scale guard
+        run: node scripts/hero-harness.mjs scripts/check-hero-scale.mjs
+      - name: Run hero grain guard
+        run: node scripts/hero-harness.mjs scripts/check-hero-grain.mjs
+      - name: Run hero chart guard
+        run: node scripts/hero-harness.mjs scripts/check-hero-chart.mjs
         # Measures the real rendered hero through headless Chrome, so the
         # editorial type scale is gated rather than merely present. The guard
         # starts neither Chrome nor the server; this step does, and tears both
@@ -74,6 +85,12 @@ jobs:
           STATUS=$?
           kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
           exit $STATUS
+      - name: Run hero chart guard
+        # Measures the real rendered hero through headless Chrome, so the
+        # chart recede is gated rather than merely present. Starts its own
+        # Chrome instance and Next server so it does not depend on the
+        # previous guard step's processes, which are not shared across
+        # GitHub Actions steps.
       - name: Run hero grain guard
         # Measures the grain layer on the hero through headless Chrome, so
         # the texture is gated rather than merely present. The guard
@@ -112,6 +129,15 @@ jobs:
             kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
             exit 1
           fi
+          node scripts/check-hero-chart.mjs http://127.0.0.1:3311/ --cdp http://127.0.0.1:9222
+          STATUS=$?
+          kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
+          exit $STATUS
+      - name: Run hero grain guard
+        # Measures the grain layer on the hero through headless Chrome, so
+        # the texture is gated rather than merely present. The guard
+        # inherits the same Chrome + server teardown pattern as the scale
+        # guard above.
           node scripts/check-hero-grain.mjs http://127.0.0.1:3311/ --cdp http://127.0.0.1:9222
           STATUS=$?
           kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
@@ -155,6 +181,7 @@ jobs:
             kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true
             exit 1
           fi
+          node scripts/check-hero-grain.mjs http://127.0.0.1:3311/ --cdp http://127.0.0.1:9222
           node scripts/check-hero-chart.mjs http://127.0.0.1:3311/ --cdp http://127.0.0.1:9222
           STATUS=$?
           kill "$NEXT_PID" "$CHROME_PID" 2>/dev/null || true

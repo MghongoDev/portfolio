@@ -6,8 +6,10 @@
  * baseline mode, then with --force-interactive, then baseline again.
  *
  * Usage:
- *   node scripts/verify-hero-grain.mjs [--base <url>] [--cdp <url>]
- *   Defaults: base=http://127.0.0.1:3311/, cdp=http://127.0.0.1:9229
+ *   node scripts/verify-hero-grain.mjs <baseUrl> [--cdp url]
+ *
+ * Expects a server and a Chrome DevTools endpoint to be running already, the
+ * way scripts/hero-harness.mjs leaves them. It starts neither.
  */
 
 import { spawnSync } from "node:child_process";
@@ -17,12 +19,19 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const GUARD = join(here, "check-hero-grain.mjs");
 
+// Same shape as the guards: the base URL first, then --cdp. scripts/hero-harness.mjs
+// supplies both, so every hero script is invoked the same way and a reader only
+// learns the shape once.
 function parseArgs(argv) {
-  const out = { base: "http://127.0.0.1:3311/", cdp: "http://127.0.0.1:9229" };
+  const out = { base: null, cdp: "http://127.0.0.1:9229" };
   for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
-    if (a === "--base") out.base = argv[++i];
-    else if (a === "--cdp") out.cdp = argv[++i];
+    if (a === "--cdp") out.cdp = argv[++i];
+    else if (!a.startsWith("--")) out.base = a;
+  }
+  if (!out.base) {
+    console.error("usage: node scripts/verify-hero-grain.mjs <baseUrl> [--cdp url]");
+    process.exit(2);
   }
   return out;
 }
