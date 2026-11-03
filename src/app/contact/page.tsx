@@ -16,6 +16,13 @@ const channels = [
     external: false,
   },
   {
+    label: "Phone",
+    value: "254 705 197 185",
+    href: `tel:+254705197185`,
+    hint: "WhatsApp & voice",
+    external: false,
+  },
+  {
     label: "LinkedIn",
     value: "in/david-mwandairo",
     href: site.links.linkedin,

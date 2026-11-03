@@ -12,7 +12,7 @@ const ROUTES: { path: string; status: number; contains: string }[] = [
   { path: "/projects/tembo-hotel-analysis", status: 200, contains: "Tembo Hotel Analysis" },
   { path: "/about", status: 200, contains: "unglamorous parts of data" },
   { path: "/experience", status: 200, contains: "The story so far" },
-  { path: "/resume", status: 200, contains: "One page, all signal" },
+  { path: "/resume", status: 200, contains: "David Mghongo Mwandairo" },
   { path: "/contact", status: 200, contains: "gatekeeping" },
   { path: "/nowhere", status: 404, contains: "No rows returned for this route" },
 ];

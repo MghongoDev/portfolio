@@ -1,37 +1,125 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/reveal";
+import { site } from "@/lib/site";
+import fs from "node:fs";
+import path from "node:path";
 
 export const metadata: Metadata = {
   title: "Résumé",
-  description: "David Mwandairo's résumé: skills across data engineering, analytics engineering, ML, and BI, with a downloadable PDF.",
+  description:
+    "David Mghongo Mwandairo's résumé: data engineering summary, skills, and experience, with a downloadable PDF.",
 };
 
-const groups = [
-  { group: "Languages", items: ["Python", "SQL", "Bash"] },
-  { group: "Warehouses & stores", items: ["PostgreSQL", "ClickHouse", "DuckDB"] },
-  { group: "Modeling & quality", items: ["dbt", "SCD Type 2", "Great Expectations"] },
-  { group: "Orchestration & streaming", items: ["Airflow", "Kafka", "Debezium"] },
-  { group: "ML & serving", items: ["scikit-learn", "FastAPI", "pytest", "Docker"] },
-  { group: "BI & observability", items: ["Power BI", "DAX", "Grafana", "Prometheus"] },
-  { group: "Platform", items: ["Terraform", "Git", "GitHub"] },
-];
+type ExperienceEntry = {
+  period: string;
+  role: string;
+  org: string;
+  summary: string;
+  tags: string[];
+};
 
-const highlights = [
+const experienceFile = path.join(process.cwd(), "content", "experience.json");
+const experienceJson = JSON.parse(
+  fs.readFileSync(experienceFile, "utf8")
+) as { entries: ExperienceEntry[] };
+
+const summary =
+  "Data Engineer with 7+ years of experience designing, developing, testing and maintaining batch, streaming and real-time data pipelines and curated analytical datasets, including in banking, financial services and other regulated data environments. Proven record delivering production ETL/ELT pipelines with Python, SQL, Apache Kafka, Apache Spark, Apache Airflow and dbt into Snowflake, BigQuery and ClickHouse, building reusable data products that power business intelligence, analytics and AI solutions, including the data infrastructure behind a proprietary credit-scoring and machine-learning system. Experienced implementing data quality controls, reconciliation, metadata, lineage and monitoring (dbt tests, Great Expectations, Prometheus, Grafana), alongside RBAC, access controls, encryption, backup, disaster recovery and SOC2-aligned auditability. Skilled in automated testing, Git source control, Docker and CI/CD to support deployments across development, testing and production environments. Collaborates with cross-functional teams and business data owners to translate business requirements into fit-for-purpose data solutions, with a strong drive to extend into unstructured data pipelines for generative AI.";
+
+const skills = [
   {
-    text: "Built a medallion lakehouse with immutable bronze, SCD Type 2 dimensions, and point-in-time-correct joins: Airflow, dbt, DuckDB, Terraform.",
-    href: "/projects/marketfeed-lakehouse",
-    label: "MarketFeed Lakehouse",
+    group: "Data Pipelines & Orchestration",
+    items: [
+      "Batch, Streaming & Real-Time Pipelines",
+      "ETL/ELT Development",
+      "Apache Kafka",
+      "Apache Spark (incl. Spark Streaming)",
+      "Apache Airflow",
+      "dbt (Data Build Tool)",
+      "Change Data Capture (Debezium)",
+      "Airbyte",
+      "Event-Driven Pipelines",
+      "REST API & Webhook Integration",
+      "Custom Python & SQL Connectors",
+      "Pipeline Performance, Reliability, Scalability & Cost Optimization",
+    ],
   },
   {
-    text: "Streamed a microfinance OLTP core into ClickHouse via Debezium/Kafka CDC, shaped it with dbt, and observed every stage in Grafana.",
-    href: "/projects/fineract-analytics-platform",
-    label: "Fineract Analytics Platform",
+    group: "Data Warehousing & Modeling",
+    items: [
+      "Snowflake",
+      "BigQuery",
+      "ClickHouse (OLAP)",
+      "MySQL & PostgreSQL (OLTP)",
+      "Dimensional Modeling (Kimball, Star & Snowflake)",
+      "Curated Analytical Datasets",
+      "Reusable Data Products & Data Marts",
+      "Feature Sets for ML & AI",
+      "Semantic Layer",
+      "Data Lake & Lakehouse Concepts",
+      "NoSQL Concepts",
+    ],
   },
   {
-    text: "Took telecom churn end to end: 7,021 customers, F1 0.6129 / ROC-AUC 0.8397 with logistic regression, served through a tested FastAPI service.",
-    href: "/projects/signaltel-churn-intelligence",
-    label: "SignalTel Churn Intelligence",
+    group: "Data Quality, Governance & Observability",
+    items: [
+      "Data Quality Controls",
+      "Reconciliation",
+      "Metadata Management",
+      "Data Lineage",
+      "Automated Data Validation (dbt Tests, Great Expectations)",
+      "Anomaly Detection",
+      "Prometheus",
+      "Grafana Dashboards & Alerting",
+      "Monitoring & Logging",
+      "Incident Response & Troubleshooting",
+    ],
+  },
+  {
+    group: "Security, Privacy & Resilience",
+    items: [
+      "Data Security & Privacy",
+      "Role-Based Access Control (RBAC)",
+      "Data Encryption (At Rest & In Transit)",
+      "Data Retention",
+      "Auditability",
+      "High Availability & Disaster Recovery",
+      "Automated Database Backups",
+      "Regulatory Compliance (SOC2)",
+      "Operational Resilience",
+    ],
+  },
+  {
+    group: "DevOps & Engineering Practices",
+    items: [
+      "CI/CD Pipeline Automation",
+      "Automated Testing",
+      "Git Source Control",
+      "Docker Containerization",
+      "Linux Infrastructure",
+      "Deployments (Dev, Test, Prod)",
+      "Technical Documentation & Operating Procedures",
+    ],
+  },
+  {
+    group: "Programming & Scripting",
+    items: [
+      "Python (Pandas, NumPy, Modular Pipeline Automation)",
+      "SQL (Complex Querying & Index Tuning)",
+      "Bash / Shell Scripting",
+      "R for Statistical Modeling",
+    ],
+  },
+  {
+    group: "Collaboration & Leadership",
+    items: [
+      "Cross-Functional Collaboration with Data Owners",
+      "Translating Business Requirements into Datasets",
+      "Mentoring Junior Engineers",
+      "Remote Team Collaboration",
+      "Extreme Ownership",
+    ],
   },
 ];
 
@@ -41,11 +129,12 @@ export default function ResumePage() {
       <Reveal>
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-faint">Résumé</p>
         <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-paper sm:text-5xl">
-          One page, all signal<span className="text-accent">.</span>
+          David Mghongo Mwandairo<span className="text-accent">.</span>
         </h1>
-        <p className="mt-4 max-w-2xl text-lg text-muted">
-          The short version of the case studies: skills, highlights, and a PDF to forward.
+        <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
+          {site.role}
         </p>
+        <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">{site.tagline}</p>
         <div className="mt-8 flex flex-wrap gap-4">
           <a href="/David-Mwandairo-Resume.pdf" download className="btn btn-primary press">
             Download PDF
@@ -57,12 +146,17 @@ export default function ResumePage() {
         </div>
       </Reveal>
 
+      <Reveal className="mt-16">
+        <h2 className="font-display text-2xl font-semibold tracking-tight text-paper">Summary</h2>
+        <p className="mt-4 max-w-3xl leading-relaxed text-muted">{summary}</p>
+      </Reveal>
+
       <section className="mt-16">
         <Reveal>
           <h2 className="font-display text-2xl font-semibold tracking-tight text-paper">Skills</h2>
         </Reveal>
         <div className="mt-7 grid grid-cols-1 gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-3">
-          {groups.map((group, i) => (
+          {skills.map((group, i) => (
             <Reveal key={group.group} delay={i * 50}>
               <h3 className="font-mono text-xs uppercase tracking-[0.14em] text-faint">{group.group}</h3>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -79,20 +173,36 @@ export default function ResumePage() {
 
       <section className="mt-16">
         <Reveal>
-          <h2 className="font-display text-2xl font-semibold tracking-tight text-paper">Highlights</h2>
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-paper">Experience</h2>
         </Reveal>
-        <div className="mt-7 space-y-6">
-          {highlights.map((highlight, i) => (
-            <Reveal key={highlight.label} delay={i * 70}>
-              <div className="border-l-2 border-accent/40 pl-5">
-                <Link href={highlight.href} className="link-slide font-display text-lg font-semibold text-paper tcolor hover:text-accent">
-                  {highlight.label}
-                </Link>
-                <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted">{highlight.text}</p>
+        <div className="mt-7 space-y-10">
+          {experienceJson.entries.map((entry, i) => (
+            <Reveal key={`${entry.period}-${entry.role}`} delay={i * 70}>
+              <div className="relative">
+                <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">{entry.period}</p>
+                <h3 className="mt-2 font-display text-lg font-semibold text-paper">{entry.role}</h3>
+                <p className="mt-1 text-sm text-muted">{entry.org}</p>
+                <p className="mt-3 leading-relaxed text-muted">{entry.summary}</p>
+                {entry.tags.length > 0 && (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {entry.tags.map((tag) => (
+                      <span key={tag} className="chip">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </Reveal>
           ))}
         </div>
+      </section>
+
+      <section className="mt-16 border-t border-line pt-10">
+        <Reveal>
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-paper">Contact</h2>
+          <p className="mt-4 text-muted">Reach me by the channels on this site. The PDF above holds the forwardable detail.</p>
+        </Reveal>
       </section>
 
       <Reveal className="mt-16 border-t border-line pt-8">
@@ -103,7 +213,7 @@ export default function ResumePage() {
           </Link>{" "}
           and on{" "}
           <a
-            href="https://github.com/MghongoDev"
+            href={site.links.github}
             target="_blank"
             rel="noopener noreferrer"
             className="link-slide text-accent"
