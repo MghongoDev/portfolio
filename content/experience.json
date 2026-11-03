@@ -1,12 +1,33 @@
 {
-  "note": "Timeline is maintained in content/experience.json: append an entry with period, role, org, summary, and tags; the page renders them in file order.",
+  "note": "Timeline is maintained in content/experience.json: append an entry with period, role, org, summary, and tags; the page renders them in file order.\n\nEntries are the four roles from David Mwandairo's real resume (David_Mwandairo_Resume.pdf), newest first.",
   "entries": [
     {
       "period": "2026 to present",
-      "role": "Independent data platform builds",
-      "org": "Self-directed (github.com/MghongoDev)",
-      "summary": "Designing and shipping end-to-end platforms: a market-data lakehouse with immutable bronze and SCD Type 2 dimensions, a CDC streaming warehouse over a microfinance core, a churn ML service behind FastAPI, and SQL/BI analysis work. Each one documented, tested, and containerized as if production depended on it.",
-      "tags": ["Python", "SQL", "dbt", "Airflow", "Kafka", "ClickHouse"]
+      "role": "Data Engineer",
+      "org": "Data Science East Africa, Nairobi, Kenya",
+      "summary": "Supported ETL workflows and data-pipeline development across inventory and logistics source systems. Collaborated cross-functionally to optimize pipelines, lifting operational efficiency by 15%. Performed data validation and implemented governance and access controls, raising data integrity by 20% and supporting secure, reliable analytics pipelines. Used Grafana and Tableau for dashboarding and real-time analysis of streaming pipelines, supporting platform observability and monitoring.",
+      "tags": ["Python", "SQL", "dbt", "Airflow", "Kafka", "Grafana", "Tableau", "Data quality"]
+    },
+    {
+      "period": "Feb 2023 to Oct 2025",
+      "role": "Data Engineer",
+      "org": "Lipa Later, Nairobi, Kenya",
+      "summary": "Architected and maintained scalable batch and real-time ETL/ELT pipelines ingesting and standardizing transaction data from 50,000+ merchant partners and 1M+ active customers across four countries, processing $100M+ in annual credit volume while reducing pipeline latency by 40% to enable near-real-time decisioning. Designed and deployed a centralized data warehouse consolidating the core banking system, payment gateways and merchant APIs, reducing daily portfolio risk report generation from 6 hours to 45 minutes. Built and optimized the data infrastructure and feature pipelines powering a proprietary credit-scoring and ML system, reducing approval turnaround from 48 hours to under 5 seconds. Developed real-time fraud detection pipelines monitoring behavioral metrics and transaction velocity, flagging 2,000+ suspicious transactions daily and improving detection accuracy by 30% with no impact to checkout. Engineered secure data integrations with open finance partners (Mono, Pngme) to enrich customer profiles, increasing approval rates by 25% for previously unbanked customers.",
+      "tags": ["Python", "SQL", "dbt", "Airflow", "Kafka", "ClickHouse", "Snowflake", "BigQuery", "ML", "Open finance"]
+    },
+    {
+      "period": "Feb 2020 to Dec 2022",
+      "role": "Data Engineer",
+      "org": "Bench Accounting, Remote",
+      "summary": "Architected and maintained high-volume ETL/ELT pipelines (Python, Airflow, dbt) ingesting and standardizing financial transactions from 20,000+ SMBs across 50+ financial institutions, scaling to 30M monthly transactions while reducing end-to-end pipeline latency by 35%. Developed automated data-quality monitors and reconciliation protocols detecting 1,200+ daily data anomalies, improving bookkeeping accuracy by 25% and saving the operations team about 20 hours per week. Designed and deployed a centralized cloud data warehouse (Snowflake, BigQuery) consolidating 15 disparate source systems, reducing monthly financial report generation from 3 days to 2 hours. Implemented a semantic data layer and curated data marts enabling 50+ non-technical stakeholders to self-serve queries, cutting ad-hoc engineering requests by 60%. Engineered secure, high-performance data export APIs and migration pipelines, cutting full client data migration time from 5 days to under 4 hours while ensuring SOC2 and financial audit compliance.",
+      "tags": ["Python", "Airflow", "dbt", "Snowflake", "BigQuery", "Great Expectations", "Prometheus", "SOC2"]
+    },
+    {
+      "period": "Dec 2017 to Dec 2018",
+      "role": "Data Engineer / Laboratory Data Analyst",
+      "org": "Burn Manufacturing, Ruiru, Kenya",
+      "summary": "Developed modular Python and Bash/Shell scripts to extract, transform and load time-series telemetry and quality-testing datasets from manufacturing IoT sensors and testing equipment, reducing manual data-preparation time by 40%. Automated validation checks and standardized data-recording structures, boosting dataset reliability and completeness by 25% across factory and field data collection. Engineered analytics-ready performance datasets across 50+ product models, applying statistical modeling and hypothesis testing (Python/R) to guide manufacturing decisions.",
+      "tags": ["Python", "Bash", "SQL", "R", "IoT", "Data quality"]
     }
   ]
 }

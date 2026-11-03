@@ -54,7 +54,7 @@ export default function AboutPage() {
 
       <Reveal className="mt-10 space-y-5 text-lg leading-relaxed text-muted">
         <p>
-          I&apos;m David Mwandairo, a data engineer and data scientist. The work I enjoy most sits between
+          I&apos;m David Mghongo Mwandairo, a data engineer. The work I enjoy most sits between
           where data arrives and where decisions come out: the ingestion that survives a flaky API, the
           deduplication that makes the grain honest, the tests that catch the drift before the dashboard does.
         </p>

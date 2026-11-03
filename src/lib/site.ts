@@ -1,11 +1,12 @@
 export const site = {
-  name: "David Mwandairo",
+  name: "David Mghongo Mwandairo",
   role: "Data Engineer & Data Scientist",
   tagline:
     "I design pipelines, models, and dashboards that survive contact with real data, from raw API JSON to boardroom-ready answers.",
   url: "https://dmwandairo.vercel.app",
   links: {
     email: "mwandairodavid@gmail.com",
+    phone: "+254 705 197 185",
     github: "https://github.com/MghongoDev",
     githubUser: "MghongoDev",
     linkedin: "https://www.linkedin.com/in/david-mwandairo/",
