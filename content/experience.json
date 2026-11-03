@@ -1,5 +1,4 @@
 {
-  "note": "Timeline is maintained in content/experience.json: append an entry with period, role, org, summary, and tags; the page renders them in file order.\n\nEntries are the four roles from David Mwandairo's real resume (David_Mwandairo_Resume.pdf), newest first.",
   "entries": [
     {
       "period": "2026 to present",

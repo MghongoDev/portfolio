@@ -78,9 +78,6 @@ export default function ExperiencePage() {
         ))}
       </div>
 
-      <Reveal className="mt-14 border-t border-line pt-6">
-        <p className="font-mono text-xs leading-relaxed text-faint">{note}</p>
-      </Reveal>
     </div>
   );
 }
