@@ -39,7 +39,7 @@ export const craftProject = {
   slug: "duewright",
   title: "Duewright",
   summary:
-    "A task manager with one tested core and two thin interfaces, a CLI and REST API over the same business logic. Phase 1: the tested core, built test-first with ADRs.",
+    "A task manager with one tested core and two thin interfaces, a CLI and REST API over the same business logic. The core is built test-first with ADRs; follow-up work on PostgreSQL persistence and published docs is in progress.",
   tags: ["Python", "pytest", "FastAPI", "Domain design"],
   repo: "https://github.com/MghongoDev/Duewright",
   year: "2026",
